@@ -1,0 +1,19 @@
+{
+  "name": "br-library",
+  "version": "1.0.0",
+  "description": "A utility for logging blu-rays purchased, watched, unwatched, and wishlisted. Built using the MERN stack and the Open Movie DB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msb2170/br-library.git"
+  },
+  "author": "Matthew Byrd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msb2170/br-library/issues"
+  },
+  "homepage": "https://github.com/msb2170/br-library#readme"
+}
