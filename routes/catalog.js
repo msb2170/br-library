@@ -12,21 +12,7 @@ const title_controller = require('../controllers/titleController')
 router.get("/", title_controller.index)
 
 //POST request for a title
-router.post('/title', (req, res) => {
-    let title = new Title({
-        director: req.body.director,
-        title: req.body.title,
-        language: req.body.language,
-        genre: req.body.genre,
-        year: req.body.year
-    })
-    title.save((err, result) => {
-        if (err) {
-            return res.status(500).json({err})
-        }
-        res.json({result})
-    })
-})
+router.post('/title', title_controller.post_title)
 
 //GET request for a single title
 router.get("/title/:id", title_controller.title_detail)
@@ -34,7 +20,7 @@ router.get("/title/:id", title_controller.title_detail)
 //GET all books
 router.get("/titles", title_controller.title_list)
 
-//Director CRUD ops
+router.post("/director", director_controller.post_director)
 
 //GET a single director
 router.get("/director/:id", director_controller.director_detail)
@@ -58,4 +44,4 @@ router.get("/language/:id", language_controller.language_detail)
 //GET a list of all languages
 router.get("/languages", language_controller.language_list)
 
-module.exports = router
+module.exports = router;

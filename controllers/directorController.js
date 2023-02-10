@@ -2,10 +2,9 @@ const Director = require('../models/director')
 const async = require('async')
 const Title = require('../models/title')
 
-
 //Display list of all directors
 exports.director_list = function(req, res, next) {
-    Director.find()
+    Director.find({})
     .sort([["last_name", "ascending"]])
     .exec(function(err, list_directors) {
         if (err) {
@@ -45,4 +44,17 @@ exports.director_detail = function(req, res, next) {
             })
         }
     )
+}
+
+exports.post_director = function(req, res) {
+    let director = new Director({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name
+    })
+    director.save((err, db) => {
+        if (err) {
+            res.status(500).send(err)
+        }
+        res.json(db)
+    })
 }

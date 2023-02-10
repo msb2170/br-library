@@ -5,6 +5,10 @@ require('dotenv').config();
 const bodyParser = require('body-parser')
 
 
+//Require routers
+const indexRouter = require('./routes/index')
+const catalogRouter = require('./routes/catalog')
+
 //configure Express
 const app = express();
 
@@ -13,9 +17,9 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.send("hello world")
-})
+app.use('/', indexRouter)
+app.use('/catalog', catalogRouter)
+
 
 
 //MongoDB connection

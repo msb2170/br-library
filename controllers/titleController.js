@@ -1,9 +1,11 @@
+
+
 const Title = require('../models/title')
 const Director = require('../models/director')
 const Genre = require('../models/genre')
 const Language = require('../models/language')
 const async = require('async')
-const title = require('../models/title')
+
 
 
 //Displays an index page featuring counts of the various categories
@@ -24,7 +26,7 @@ exports.index = (req, res) => {
             },
         },
         (err, results) => {
-            res.json("index", {
+            res.json({
                 title: "Blu-Ray Library",
                 error: err,
                 data: results
@@ -42,7 +44,7 @@ exports.title_list = function(req, res, next) {
             if (err) {
                 return next(err)
             }
-            res.json("title_list", {
+            res.json({
                 title: "Title List",
                 title_list: list_titles
             })
@@ -54,7 +56,7 @@ exports.title_detail = function(req, res, next) {
     async.parallel (
         {
             title(callback) {
-                title.findById(req.params.id)
+                Title.findById(req.params.id)
                     .populate("director")
                     .populate("genre")
                     .populate("year")
@@ -70,10 +72,27 @@ exports.title_detail = function(req, res, next) {
                 err.status = 404
                 return next(err)
             }
-            res.json("title_detail", {
+            res.json({
                 title_name: results.title.title,
                 title: results.title,
             })
         }
     )
+}
+
+exports.post_title = function(req, res) {
+    let title = new Title({
+        title: req.body.title,
+        director: req.body.director,
+        year: req.body.year,
+        genre: req.body.genre,
+        language: req.body.language,
+        summary: req.body.summary
+    })
+    title.save((err, db) => {
+        if (err) {
+            return res.status(500).json(err)
+        }
+        res.json(db)
+    })
 }
