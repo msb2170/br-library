@@ -4,13 +4,13 @@ const async = require('async')
 
 //Display a list of all genres
 exports.genre_list = function(req, res, next) {
-    Genre.find()
-    .sort(["name", "ascending"])
+    Genre.find({})
+    .sort([["name", "ascending"]])
     .exec(function (err, list_genres) {
         if (err) {
             return next(err)
         }
-        res.render("genre_list", {
+        res.json({
             title: "Genre List",
             genre_list: list_genres
         })
@@ -45,4 +45,15 @@ exports.genre_detail = function(req, res, next) {
             })
         }
     )
+}
+
+//Post a genre
+exports.post_genre = function(req,res) {
+    let genre = new Genre({
+        name: req.body.name
+    })
+    genre.save((err, db) => {
+        if (err) return err
+        res.json(db)
+    })
 }

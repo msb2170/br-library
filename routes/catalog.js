@@ -28,7 +28,8 @@ router.get("/director/:id", director_controller.director_detail)
 //GET all directors
 router.get("/directors", director_controller.director_list)
 
-//Genre CRUD ops here
+//POST request for a genre
+router.post("/genre", genre_controller.post_genre)
 
 //GET request for a single genre
 router.get("/genre/:id", genre_controller.genre_detail)
@@ -36,7 +37,8 @@ router.get("/genre/:id", genre_controller.genre_detail)
 //GET request for a list of all genres
 router.get("/genres", genre_controller.genre_list)
 
-//Language CRUD ops here
+//Post request for a language
+router.post("/language", language_controller.post_language)
 
 //GET a single language
 router.get("/language/:id", language_controller.language_detail)

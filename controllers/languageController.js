@@ -5,13 +5,13 @@ const async = require('async')
 
 //Display a list of all genres
 exports.language_list = function(req, res, next) {
-    Language.find()
-    .sort(["name", "ascending"])
+    Language.find({})
+    .sort([["name", "ascending"]])
     .exec(function (err, list_languages) {
         if (err) {
             return next(err)
         }
-        res.json("language list", {
+        res.json({
             title: "Language List",
             language_list: list_languages
         })
@@ -46,4 +46,14 @@ exports.language_detail = function(req, res, next) {
             })
         }
     )
+}
+
+exports.post_language = function(req,res) {
+    let language = new Language({
+        name: req.body.name
+    })
+    language.save((err, db) => {
+        if (err) return err
+        res.json(db)
+    })
 }

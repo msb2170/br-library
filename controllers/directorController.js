@@ -10,7 +10,7 @@ exports.director_list = function(req, res, next) {
         if (err) {
             return next(err)
         }
-        res.json("director_list", {
+        res.json({
             title: "Director List",
             director_list: list_directors
         })
