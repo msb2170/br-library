@@ -37,7 +37,7 @@ exports.index = (req, res) => {
 
 //Display a list of all titles
 exports.title_list = function(req, res, next) {
-    Title.find({}, "title director")
+    Title.find({})
         .sort({title: 1})
         .populate("director")
         .exec(function (err, list_titles) {
@@ -45,7 +45,6 @@ exports.title_list = function(req, res, next) {
                 return next(err)
             }
             res.json({
-                title: "Title List",
                 title_list: list_titles
             })
         })

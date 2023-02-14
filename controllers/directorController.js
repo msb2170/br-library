@@ -25,7 +25,7 @@ exports.director_detail = function(req, res, next) {
                 Director.findById(req.params.id).exec(callback)
             },
             director_titles(callback) {
-                Title.find({director: req.params.id}, "title summary").exec(callback)
+                Title.find({director: req.params.id}).exec(callback)
             }
         },
         (err, results) => {
@@ -37,8 +37,7 @@ exports.director_detail = function(req, res, next) {
                 err.status = 404
                 return next(err)
             }
-            res.json("director_detail", {
-                title: "Director Detail",
+            res.json({
                 director: results.director,
                 director_titles: results.director_titles
             })
