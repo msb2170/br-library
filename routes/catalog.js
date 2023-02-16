@@ -2,11 +2,21 @@ const express = require('express')
 
 const router = express.Router();
 
+const axios = require('axios')
+
+require('dotenv').config()
+
 //require controllers
 const director_controller = require('../controllers/directorController')
 const genre_controller = require('../controllers/genreController')
 const language_controller = require('../controllers/languageController')
 const title_controller = require('../controllers/titleController')
+
+//GET data from the API upon search
+// router.get("/search", async function(req, res) {
+//     const response = await axios.get(`http://www.omdbapi.com/?t=${req.query}&apikey=${process.env.OMDB_KEY}`)
+//     .then((response) => response.data)
+// })
 
 //GET home page
 router.get("/", title_controller.index)
