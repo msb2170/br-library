@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 
 const TitleSchema = new Schema({
     title: {type: String, required: true},
-    director: {type: String, ref: "Director"},
+    director: {type: String},
     summary: {type: String, required: true},
     year: {type: String, required: true},
     genre: [{type: String, ref: "Genre"}],

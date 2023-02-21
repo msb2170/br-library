@@ -15,14 +15,9 @@ const title_controller = require('../controllers/titleController')
 //GET data from the API upon search
 router.get("/search", function(req, res) {
     const omdbAPIkey = process.env.OMDB_KEY
-    const searchTerm = req.body.title
-
+    const searchTerm = req.body.query
     axios.get(`http://www.omdbapi.com/?apikey=${omdbAPIkey}&s=${searchTerm}`)
-    .then(response => response.json())
-    .then((data) => res.json(data))
-    .catch(error => {
-      console.log(error);
-    })
+    .then(response => res.json(response.data));
 })
 
 //GET home page
