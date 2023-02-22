@@ -1,8 +1,8 @@
 
-export default function MovieCard() {
+export default function MovieCard({title}) {
     return (
         <div>
-            <h1>I'm a movie card</h1>
+            <h1>{title}</h1>
         </div>
     )
 }

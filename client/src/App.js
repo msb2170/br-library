@@ -20,15 +20,18 @@ function App() {
 
   const getMovies = () => {
     //fetch a list of titles
-    fetch('http://localhost:8000/titles')
+    fetch('http://localhost:8000/catalog/titles')
     .then((response) => response.json())
 
     //set the movies to the fetched data, will be mapped onto movie cards
-    .then((data) => setMovies([data]))
+    .then((data) => setMovies(data["title_list"]))
   }
 
   useEffect(() => {
     getIndexPage()
+  }, [])
+
+  useEffect(() => {
     getMovies()
   }, [])
 
@@ -38,13 +41,13 @@ function App() {
   return (
     <div className="App">
       <h1 className='title'>{index.title}</h1>
-      {/* <Stats index={index} />
+      <Stats index={index} />
       {movies.map((movie, i) => {
         return <MovieCard 
                 key={i}
-                title={movie.title}
+                title={movie["title"]}
                 /> 
-      })} */}
+      })}
     </div>
   );
 }
