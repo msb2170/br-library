@@ -9,8 +9,8 @@ const TitleSchema = new Schema({
     director: {type: String},
     summary: {type: String, required: true},
     year: {type: String, required: true},
-    genre: [{type: String, ref: "Genre"}],
-    language: [{type: String, ref: "Language"}]
+    genre: {type: String, ref: "Genre"},
+    language: {type: String, ref: "Language"}
 })
 
 module.exports = mongoose.model("Title", TitleSchema)

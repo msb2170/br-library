@@ -13,12 +13,7 @@ const language_controller = require('../controllers/languageController')
 const title_controller = require('../controllers/titleController')
 
 //GET data from the API upon search
-router.get("/search", function(req, res) {
-    const omdbAPIkey = process.env.OMDB_KEY
-    const searchTerm = req.body.query
-    axios.get(`http://www.omdbapi.com/?apikey=${omdbAPIkey}&s=${searchTerm}`)
-    .then(response => res.json(response.data));
-})
+router.get("/search", title_controller.search)
 
 //GET home page
 router.get("/", title_controller.index)
@@ -30,7 +25,7 @@ router.post('/title', title_controller.post_title)
 router.get("/title/:id", title_controller.title_detail)
 
 //GET all books
-router.get("/titles", title_controller.title_list)
+// router.get("/titles", title_controller.title_list)
 
 router.post("/director", director_controller.post_director)
 
