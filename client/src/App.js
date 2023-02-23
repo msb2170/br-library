@@ -8,10 +8,11 @@ import Stats from './components/Stats'
 function App() {
   const [index, setIndex] = useState({})
   const [movies, setMovies] = useState([])
+  const [search, setSearch] = useState('')
 
   const getIndexPage = () => {
     //fetch the index
-    fetch('http://localhost:8000/')
+    fetch('http://localhost:8000/catalog')
     .then((response) => response.json())
 
     //set the index to the fetched data, will be used for the Stats box and the title
@@ -29,11 +30,17 @@ function App() {
 
   useEffect(() => {
     getIndexPage()
-  }, [])
-
-  useEffect(() => {
     getMovies()
   }, [])
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('submit')
+  }
 
   console.log(index)
   console.log(movies)
@@ -42,10 +49,25 @@ function App() {
     <div className="App">
       <h1 className='title'>{index.title}</h1>
       <Stats index={index} />
+      <input 
+          className='search-bar'
+          onChange={handleChange}
+      />
+      <button 
+        className='submit-btn'
+        onSubmit={handleSubmit}
+      >
+        submit
+      </button>
       {movies.map((movie, i) => {
         return <MovieCard 
                 key={i}
-                title={movie["title"]}
+                title={movie.title}
+                summary={movie.summary}
+                genre={movie.genre}
+                director={movie.director}
+                language={movie.language}
+                year={movie.year}
                 /> 
       })}
     </div>

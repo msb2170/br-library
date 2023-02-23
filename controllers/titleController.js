@@ -2,6 +2,7 @@ require('dotenv').config
 
 const axios = require('axios')
 
+
 const Title = require('../models/title')
 const Director = require('../models/director')
 const Genre = require('../models/genre')
@@ -40,25 +41,26 @@ exports.index = (req, res) => {
 exports.search = function(req,res,next) {
     const omdbAPIkey = process.env.OMDB_KEY
     const searchTerm = req.body.query
+    console.log(searchTerm)
     axios.get(`http://www.omdbapi.com/?apikey=${omdbAPIkey}&s=${searchTerm}`)
-    .then(response => res.json(response.data));
-    //let newTitle = ...
-}
+    .then(response => res.json(response.data))
+}   
 
-//Display a list of all titles
-// exports.title_list = function(req, res, next) {
-//     Title.find({})
-//         .sort({title: 1})
-//         .populate("director")
-//         .exec(function (err, list_titles) {
-//             if (err) {
-//                 return next(err)
-//             }
-//             res.json({
-//                 title_list: list_titles
-//             })
-//         })
-// }
+
+// Display a list of all titles
+exports.title_list = function(req, res, next) {
+    Title.find({})
+        .sort({title: 1})
+        .populate("director")
+        .exec(function (err, list_titles) {
+            if (err) {
+                return next(err)
+            }
+            res.json({
+                title_list: list_titles
+            })
+        })
+}
 
 //Display a detail page for a specific title
 exports.title_detail = function(req, res, next) {

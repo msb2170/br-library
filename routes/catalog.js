@@ -25,7 +25,7 @@ router.post('/title', title_controller.post_title)
 router.get("/title/:id", title_controller.title_detail)
 
 //GET all books
-// router.get("/titles", title_controller.title_list)
+router.get("/titles", title_controller.title_list)
 
 router.post("/director", director_controller.post_director)
 
