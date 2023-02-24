@@ -40,7 +40,7 @@ exports.index = (req, res) => {
 
 exports.search = function(req,res,next) {
     const omdbAPIkey = process.env.OMDB_KEY
-    const searchTerm = req.body.query
+    const searchTerm = req.params.query
     console.log(searchTerm)
     axios.get(`http://www.omdbapi.com/?apikey=${omdbAPIkey}&s=${searchTerm}`)
     .then(response => res.json(response.data))

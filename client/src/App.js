@@ -1,3 +1,4 @@
+
 import {useState, useEffect} from 'react';
 import './App.css';
 
@@ -10,52 +11,57 @@ function App() {
   const [movies, setMovies] = useState([])
   const [search, setSearch] = useState('')
 
-  const getIndexPage = () => {
-    //fetch the index
-    fetch('http://localhost:8000/catalog')
-    .then((response) => response.json())
+  useEffect(() => {
+    async function getIndexPage() {
+     //fetch the index
+     await fetch('http://localhost:8000/catalog')
+     .then((response) => response.json())
+  
+     //set the index to the fetched data, will be used for the Stats box and the title
+     .then((data) => setIndex(data))
+   }
+    getIndexPage()
+  }, [])
 
-    //set the index to the fetched data, will be used for the Stats box and the title
-    .then((data) => setIndex(data))
-  }
+  useEffect(() => {
+    getMovies()
+  }, [movies.length])
 
-  const getMovies = () => {
+
+  async function getMovies() {
     //fetch a list of titles
-    fetch('http://localhost:8000/catalog/titles')
+    await fetch('http://localhost:8000/catalog/titles')
     .then((response) => response.json())
 
     //set the movies to the fetched data, will be mapped onto movie cards
     .then((data) => setMovies(data["title_list"]))
   }
 
-  useEffect(() => {
-    getIndexPage()
-    getMovies()
-  }, [])
+  
 
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('submit')
+  const handleSubmit = () => {
+    fetch(`http://localhost:8000/catalog/search?query=${search}`)
+    .then(response => response.json())
+    .then((data) => console.log(data))
   }
 
-  console.log(index)
-  console.log(movies)
+
   
   return (
     <div className="App">
       <h1 className='title'>{index.title}</h1>
-      <Stats index={index} />
+      
       <input 
           className='search-bar'
           onChange={handleChange}
       />
       <button 
         className='submit-btn'
-        onSubmit={handleSubmit}
+        onClick={handleSubmit}
       >
         submit
       </button>
@@ -70,6 +76,7 @@ function App() {
                 year={movie.year}
                 /> 
       })}
+      <Stats index={index} />
     </div>
   );
 }
