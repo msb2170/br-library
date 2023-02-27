@@ -10,6 +10,7 @@ function App() {
   const [index, setIndex] = useState({})
   const [movies, setMovies] = useState([])
   const [search, setSearch] = useState('')
+  const [movie, setMovie] = useState({})
 
   useEffect(() => {
     async function getIndexPage() {
@@ -43,12 +44,12 @@ function App() {
     setSearch(e.target.value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    setSearch(e.target.value)
     fetch(`http://localhost:8000/catalog/search?query=${search}`)
     .then(response => response.json())
-    .then((data) => console.log(data))
+    .then((data) => setMovie(data))
   }
-
 
   
   return (
@@ -65,6 +66,15 @@ function App() {
       >
         submit
       </button>
+      <div>
+        <h2>Search Result:</h2>
+        <h3>{movie.Title}</h3>
+        <img src={movie.Poster} alt="movie poster" />
+        <h4><em>{movie.Director}</em></h4>
+        <h4>{movie.Year}</h4>
+        <h4>{movie.Genre}</h4>
+        <h4>{movie.Language}</h4>
+      </div>
       {movies.map((movie, i) => {
         return <MovieCard 
                 key={i}
@@ -77,6 +87,7 @@ function App() {
                 /> 
       })}
       <Stats index={index} />
+
     </div>
   );
 }
