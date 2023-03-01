@@ -1,4 +1,5 @@
 
+
 import {useState, useEffect} from 'react';
 import './App.css';
 
@@ -51,6 +52,19 @@ function App() {
     .then((data) => setMovie(data))
   }
 
+  const handleSave = () => {
+    const newMovie = {...movie};
+
+    fetch('http://localhost:8000/catalog/title', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(newMovie)
+    })
+    .catch(err => console.log(err))
+    
+  }
   
   return (
     <div className="App">
@@ -74,6 +88,13 @@ function App() {
         <h4>{movie.Year}</h4>
         <h4>{movie.Genre}</h4>
         <h4>{movie.Language}</h4>
+        <p>{movie.Plot}</p>
+        <button 
+        className='submit-btn'
+        onClick={handleSave}
+        >
+          Save to Collection
+          </button>
       </div>
       {movies.map((movie, i) => {
         return <MovieCard 
@@ -84,9 +105,10 @@ function App() {
                 director={movie.director}
                 language={movie.language}
                 year={movie.year}
+                poster={movie.poster}
                 /> 
       })}
-      <Stats index={index} />
+      {/* <Stats index={index} /> */}
 
     </div>
   );
