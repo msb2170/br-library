@@ -93,12 +93,13 @@ exports.title_detail = function(req, res, next) {
 
 exports.post_title = function(req, res) {
     let title = new Title({
-        title: req.body.title,
-        director: req.body.director,
-        year: req.body.year,
-        genre: req.body.genre,
-        language: req.body.language,
-        summary: req.body.summary
+        title: req.body.Title,
+        poster: req.body.Poster,
+        director: req.body.Director,
+        year: req.body.Year,
+        genre: req.body.Genre,
+        language: req.body.Language,
+        summary: req.body.Plot
     })
     title.save((err, db) => {
         if (err) {
