@@ -1,5 +1,5 @@
 
-export default function MovieCard({title, director, summary, genre, year, language, poster}) {
+export default function MovieCard({title, director, summary, genre, year, language, poster, handleDelete}) {
     return (
         <div>
             <h1>{title}</h1>
@@ -9,8 +9,7 @@ export default function MovieCard({title, director, summary, genre, year, langua
             <h4>{genre}</h4>
             <h4>{language}</h4>
             <p>{summary}</p>
-            <button>save to collection</button>
-            <button>x</button>
+            <button onClick={handleDelete}>x</button>
         </div>
     )
 }

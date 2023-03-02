@@ -12,6 +12,7 @@ function App() {
   const [movies, setMovies] = useState([])
   const [search, setSearch] = useState('')
   const [movie, setMovie] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function getIndexPage() {
@@ -47,6 +48,7 @@ function App() {
 
   const handleSubmit = (e) => {
     setSearch(e.target.value)
+    setLoading(false)
     fetch(`http://localhost:8000/catalog/search?query=${search}`)
     .then(response => response.json())
     .then((data) => setMovie(data))
@@ -64,6 +66,17 @@ function App() {
     })
     .catch(err => console.log(err))
     
+    getMovies()
+  }
+
+  const handleDelete = (id) => {
+    console.log(id)
+    fetch(`http://localhost:8000/catalog/title/${id}`, {
+      method: "DELETE"
+    })
+    const newMovies = movies.filter(movie => movie.id !== id)
+    setMovies(newMovies)
+    getMovies()
   }
   
   return (
@@ -80,7 +93,8 @@ function App() {
       >
         submit
       </button>
-      <div>
+      { !loading &&
+        <div>
         <h2>Search Result:</h2>
         <h3>{movie.Title}</h3>
         <img src={movie.Poster} alt="movie poster" />
@@ -95,7 +109,7 @@ function App() {
         >
           Save to Collection
           </button>
-      </div>
+      </div>}
       {movies.map((movie, i) => {
         return <MovieCard 
                 key={i}
@@ -106,6 +120,8 @@ function App() {
                 language={movie.language}
                 year={movie.year}
                 poster={movie.poster}
+                handleDelete={() => handleDelete(movie._id)}
+                id={movie._id}
                 /> 
       })}
       {/* <Stats index={index} /> */}

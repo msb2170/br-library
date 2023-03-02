@@ -108,3 +108,17 @@ exports.post_title = function(req, res) {
         res.json(db)
     })
 }
+
+exports.delete_title = function(req, res) {
+    const {id} = req.params;
+
+    if (!id) {
+        return res.status(404).send('No post with that ID')
+    }
+    Title.findByIdAndRemove(id).exec((err) => {
+        if (err) {
+            return res.status(500).json(err)
+        }
+        res.json({message: "Title deleted"})
+    })
+}
