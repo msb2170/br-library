@@ -1,7 +1,7 @@
 
 export default function MovieCard({title, director, summary, genre, year, language, poster, handleDelete}) {
     return (
-        <div>
+        <div className="card">
             <h1>{title}</h1>
             <img alt="movie poster" src={poster} />
             <h3><em>{director}</em></h3>

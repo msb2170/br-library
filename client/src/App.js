@@ -1,5 +1,4 @@
 
-
 import {useState, useEffect} from 'react';
 import './App.css';
 
@@ -91,7 +90,7 @@ function App() {
         className='submit-btn'
         onClick={handleSubmit}
       >
-        submit
+        search
       </button>
       { !loading &&
         <div>
@@ -110,8 +109,9 @@ function App() {
           Save to Collection
           </button>
       </div>}
+      <div className='card-container'>
       {movies.map((movie, i) => {
-        return <MovieCard 
+        return <MovieCard
                 key={i}
                 title={movie.title}
                 summary={movie.summary}
@@ -124,6 +124,7 @@ function App() {
                 id={movie._id}
                 /> 
       })}
+      </div>
       {/* <Stats index={index} /> */}
 
     </div>
