@@ -33,13 +33,14 @@
 
 .card {
   background-color: darkslategray;
-  width: 90vw;
+  width: 70vw;
+  margin: 1rem;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   height: fit-content;
   display: grid; 
   grid-template-columns: 1.1fr 0.9fr 0.2fr; 
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: repeat(6, 1fr); 
   grid-template-areas: 
     "Title Title remove"
     "Image info info"
@@ -53,22 +54,33 @@
 
  
 .card-title {
-  border: 1px solid red;
   grid-area: Title;
+  margin-left: 10%;
 }
 
 .card-img {
   max-width: 90%;
   grid-area: Image;
+  place-self: center;
+  margin-bottom: 1rem;
+  border-radius: 5%;
 }
 
 .card-remove-btn {
-  border: 1px solid red;
+  color: whitesmoke;
   grid-area: remove;
+  place-self: start;
+  margin-left: 76%;
+  margin-top: 4%;
+  border: none;
+  background-color: darkslategray;
+}
+
+.card-remove-btn:hover {
+  cursor: pointer;
 }
 
 .card-info {
-  border: 1px solid red;
   grid-column: span 2;
 }
 

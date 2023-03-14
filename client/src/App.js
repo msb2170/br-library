@@ -3,32 +3,13 @@ import {useState, useEffect} from 'react';
 import './App.css';
 
 import MovieCard from './components/MovieCard';
-import Stats from './components/Stats'
 
 
 function App() {
-  const [index, setIndex] = useState({})
   const [movies, setMovies] = useState([])
   const [search, setSearch] = useState('')
   const [movie, setMovie] = useState({})
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function getIndexPage() {
-     //fetch the index
-     await fetch('http://localhost:8000/catalog')
-     .then((response) => response.json())
-  
-     //set the index to the fetched data, will be used for the Stats box and the title
-     .then((data) => setIndex(data))
-   }
-    getIndexPage()
-  }, [])
-
-  useEffect(() => {
-    getMovies()
-  }, [movies.length])
-
 
   async function getMovies() {
     //fetch a list of titles
@@ -38,6 +19,12 @@ function App() {
     //set the movies to the fetched data, will be mapped onto movie cards
     .then((data) => setMovies(data["title_list"]))
   }
+  useEffect(() => {
+    getMovies()
+    return
+  }, [movies])
+
+
 
   
 
@@ -80,8 +67,8 @@ function App() {
   
   return (
     <div className="App">
-      <h1 className='title'>{index.title}</h1>
-      
+      <h1 className='title'>Blu-Ray Library</h1>
+      <h4>Number of Titles in Collection: {movies.length}</h4>
       <input 
           className='search-bar'
           onChange={handleChange}
@@ -125,7 +112,6 @@ function App() {
                 /> 
       })}
       </div>
-      {/* <Stats index={index} /> */}
 
     </div>
   );

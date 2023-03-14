@@ -50,7 +50,7 @@ exports.search = function(req,res,next) {
 // Display a list of all titles
 exports.title_list = function(req, res, next) {
     Title.find({})
-        .sort({title: 1})
+        .sort({_id: -1})
         .populate("director")
         .exec(function (err, list_titles) {
             if (err) {
