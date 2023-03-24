@@ -13,7 +13,7 @@ function App() {
 
   async function getMovies() {
     //fetch a list of titles
-    await fetch('http://localhost:8000/catalog/titles')
+    await fetch('/catalog/titles')
     .then((response) => response.json())
 
     //set the movies to the fetched data, will be mapped onto movie cards
@@ -35,7 +35,7 @@ function App() {
   const handleSubmit = (e) => {
     setSearch(e.target.value)
     setLoading(false)
-    fetch(`http://localhost:8000/catalog/search?query=${search}`)
+    fetch(`/catalog/search?query=${search}`)
     .then(response => response.json())
     .then((data) => setMovie(data))
   }
@@ -43,7 +43,7 @@ function App() {
   const handleSave = () => {
     const newMovie = {...movie};
 
-    fetch('http://localhost:8000/catalog/title', {
+    fetch('/catalog/title', {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -57,7 +57,7 @@ function App() {
 
   const handleDelete = (id) => {
     console.log(id)
-    fetch(`http://localhost:8000/catalog/title/${id}`, {
+    fetch(`/catalog/title/${id}`, {
       method: "DELETE"
     })
     const newMovies = movies.filter(movie => movie.id !== id)
