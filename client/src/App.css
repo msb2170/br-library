@@ -33,8 +33,7 @@
 
 .card {
   background-color: darkslategray;
-  width: 70vw;
-  margin: 1rem;
+  width: 80vw;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   height: fit-content;
@@ -70,10 +69,11 @@
   color: whitesmoke;
   grid-area: remove;
   place-self: start;
-  margin-left: 76%;
-  margin-top: 4%;
   border: none;
   background-color: darkslategray;
+  position: relative;
+  top: 0.3vh;
+  left: 4vw;
 }
 
 .card-remove-btn:hover {
@@ -82,6 +82,23 @@
 
 .card-info {
   grid-column: span 2;
+  height: 20%;
 }
 
-
+@media screen and (max-width: 800px) {
+    .card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card-remove-btn {
+      position: absolute;
+      top: 0.5vh;
+      left: 74vw;
+      width: 1vw;
+    }
+    .card-title {
+      position: relative;
+      right: 2vw;
+    }
+}
